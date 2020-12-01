@@ -4,12 +4,12 @@ import pandas as pd
 
 # Transform data for machine learning algorithms
 def transform_data(df:pd.DataFrame):
-    train, test = split(df,test_size = 0.25,random_state = 45)
+    train, test = split(df,test_size = 0.35,random_state = 45)
     vectorizer = TfidfVectorizer()
     X_train = vectorizer.fit_transform(train['Review'])
     X_test = vectorizer.transform(test['Review'])
-    Y_train = train[['Rating','Class']]
-    Y_test = test[['Rating','Class']]
+    Y_train = train['Class']
+    Y_test = test['Class']
     return X_train, Y_train,X_test,Y_test
 
 
