@@ -1,7 +1,11 @@
 import pandas as pd 
 import sys
-sys.path.append('./')
-from src.features.feature_extraction import transform_data
+import os
+# sys.path.append('./')
+# from src.features.feature_extraction import transform_data
+parent_dir_name = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(parent_dir_name + './features')
+from feature_extraction import transform_data
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix,classification_report
 import seaborn as sns
@@ -27,8 +31,8 @@ def logistic_reg(data_file):
     lr.fit(X_train,Y_train)
     predictions = lr.predict(X_test)
     evaluate_model(predictions,Y_test)
-    # save the model to disk
-    filename = './models/logistic_reg.sav'
+    root=os.path.dirname(parent_dir_name)
+    filename = os.path.join(root,'models','logistic_reg.sav')
     pickle.dump(lr, open(filename, 'wb'))
  
 
@@ -48,9 +52,13 @@ def plot_confmatrix(confusion_matrix):
     heatmap = sns.heatmap(confusion_matrix,annot= True, annot_kws={"size": 16},cmap='Blues',fmt='d') 
     heatmap.yaxis.set_ticklabels(heatmap.yaxis.get_ticklabels(), rotation=0, ha='right', fontsize=12)
     heatmap.xaxis.set_ticklabels(heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=12)
-    fig.savefig('./data/plots/logistic_reg.png')
+    root=os.path.dirname(parent_dir_name)
+    fig.savefig(os.path.join(root,'data','plots','logistic_reg.png'))
+
 
 if __name__ == '__main__':
-    logistic_reg("./data/processed/clean.csv")
+    root=os.path.dirname(parent_dir_name)
+    datapath = os.path.join(root,"data","processed","clean.csv")
+    logistic_reg(datapath)
     
 
