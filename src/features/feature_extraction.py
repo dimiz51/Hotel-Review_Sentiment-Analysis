@@ -1,6 +1,8 @@
 from sklearn.model_selection import train_test_split as split
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
+import os
+parent_dir_name = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 # Transform data for machine learning algorithms
 def transform_data(df:pd.DataFrame):
@@ -16,4 +18,6 @@ def transform_data(df:pd.DataFrame):
 
 
 if __name__=='__main__':
-    transform_data(pd.read_csv('./data/processed/clean.csv')) 
+    root=os.path.dirname(parent_dir_name)
+    datapath = os.path.join(root,'data','processed','clean.csv')
+    transform_data(pd.read_csv(datapath)) 
