@@ -1,8 +1,6 @@
 import pandas as pd 
 import sys
 import os
-# sys.path.append('./')
-# from src.features.feature_extraction import transform_data
 parent_dir_name = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(parent_dir_name + './features')
 from feature_extraction import transform_data
